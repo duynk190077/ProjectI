@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="add">
+        <div class="add-container">
+            <select name="item" id="itemchoose">
+                <option value="0"></option>
+                {{#each items}} 
+                    <option value="{{this._id}}">{{this.name}}</option>
+                {{/each}}
+            </select>
+            <input type="text" placeholder="Nhập số lượng" class="add__input-num">
+            <button class="btn btn--primary" onclick="updateNum()">Cập nhật</button>
+        </div>
+    </div>
+</div>
+<script>
+    var item_id;
+    $("#itemchoose").change(function() {
+        item_id = $('option:selected').attr('value');
+    })
+    function updateNum() {
+        if (!item_id) alert('Hãy chọn mặt hàng cần thêm');
+        else if (!$('.add__input-num').val()) alert('Hãy nhập số lượng');
+        else {
+            const url = '/items/' + item_id + '/num';
+            $.ajax({
+                url: url,
+                type: 'PUT',
+                headers: {'authorization': 'bearer ' + localStorage.getItem('token')},
+                data: {
+                    num: $('.add__input-num').val(),
+                }
+            })
+            .then(data => {
+                alert(data.status);
+            })
+            .catch(err => {
+                alert(err);
+            })
+        }
+    }
+</script>

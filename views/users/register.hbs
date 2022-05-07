@@ -1,0 +1,55 @@
+<div class="register">
+    <div class="grid">
+        <div class="row">
+            <div class="grid__column-10">
+                <form method = "POST" action="/users/register" name="form-submit-register">
+                    <div class="auth-form author-form-register">
+                        <div class="auth-form__container">
+                            <div class="auth-form__header">
+                                <h3 class="auth-form__heading">Đăng ký</h3>
+                                <span class="auth-form__switch-btn" onclick="gotoLogin()">Đăng nhập</span>
+                            </div>
+                            <div class="auth-form__form">
+                                <div class="auth-form__group">
+                                    <input type="text" class="auth-form__input" placeholder="username" name="username">
+                                </div>
+                                <div class="auth-form__group">
+                                    <input type="password" class="auth-form__input" placeholder="password" name="password">
+                                </div>
+                                {{!-- <div class="auth-form__group">
+                                    <input type="password" class="auth-form__input" placeholder="password" name="slug">
+                                </div> --}}
+                            </div>
+                            <div class="auth-form__aside">
+                                <p class="auth-form__policy-text">
+                                    Bằng việc đăng kí, bạn đã đồng ý với F8-shop về
+                                    <a href="" class="auth-form__text-link">Điều khoản dịch vụ</a>
+                                    <a href="" class="auth-form__text-link">Chính sách bảo mật</a>
+                                </p>
+                            </div>
+                            <div class="auth-form__controls">
+                                <button class="btn btn--normal auth-form__controls-back">TRỞ LẠI</button>
+                                <button type="submit" class="btn btn--primary btn--register">ĐĂNG KÍ</button>
+                            </div>
+                        </div>
+                        <div class="auth-form__social">
+                        <a href="" class="auth-form__social--facebook btn btn--size-s btn--withicon">
+                            <i class="auth-form__social-icon fab fa-facebook-square"></i>
+                            <span class="auth-form__social-lable">Connect with Facebook</span>
+                        </a>
+                        <a href="" class="auth-form__social--google btn btn--size-s btn--withicon">
+                            <i class="auth-form__social-icon fab fa-google"></i>
+                            <span class="auth-form__social-lable">Connect with Google</span>
+                        </a> 
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function gotoLogin () {
+        window.location.href = '/login';
+    }
+</script>

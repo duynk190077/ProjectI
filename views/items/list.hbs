@@ -1,0 +1,80 @@
+<div class="list">
+  <div class="grid">
+      <div class="row">
+          <div class="column-10">
+            <div class="list">
+              <table class="list-table">
+                <thead>
+                    <tr>
+                        <th scope="col" class="list-col">#</th>
+                        <th scope="col" class="list-col">Tên mặt hàng</th>
+                        <th scope="col" class="list-col">Thời gian tạo</th>
+                        <th scope="col" class="list-col">Thao tác</th>
+                    </tr>
+                </thead>
+                {{#each items}}
+                    <tbody>
+                        <tr>
+                            <th scope="row" class="list-row">{{sum @index 1}}</th>
+                            <td>{{this.name}}</td>
+                            <td>{{this.createdAt}}</td>
+                            <td>
+                                <a href="" class="delete-item-link" data-id="{{this._id}}" data-toggle="modal" data-target="#delete_overlay">Xóa</a> 
+                                <a href="/items/edit/{{this._id}}" class="edit-item-link">Sửa</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                {{/each}}
+              </table>
+            </div>
+          </div>
+      </div>
+  </div>
+</div>
+<form name="delete-item-form" method="POST" action=""></form>
+<div class="modal modalDelete" id="delete_overlay">
+  <div class="modal__overlay"></div>
+  <div class="modal__body">
+    <div class="delete-item-form">
+        <div class="auth-form__container"></div>
+        <div class="auth-form__header">
+            <h3 class="auth-form__heading">Xóa mặt hàng</h3>
+            <i class="fas fa-times" id="delele-icon__close" onclick="closeClick()"></i>
+        </div>
+        <div class="delete-form__body">
+            <h3>Bạn có chắc chắn muốn xóa mặt hàng này</h3>
+        </div>
+        <div class="auth-form__controls">
+            <button class="btn btn--normal auth-form__controls-back" id="return__overlay" onclick="returnClick()">TRỞ LẠI</button>
+            <button id="delete-item" class="btn btn--primary">XÓA</button>
+        </div>
+    </div>
+  </div>
+</div>
+<script>
+    var modalDelete = document.getElementById('delete_overlay');
+    var linkDelete = $('.delete-item-link');
+    var btnReturn = document.getElementById('return__overlay');
+    var btnDelete = $('#delete-item');
+    var formDelete = document.forms['delete-item-form']
+    var i;
+    var idDelete;
+    for (i = 0 ; i < linkDelete.length; i++) {
+        linkDelete[i].addEventListener("click",function(e) {
+            modalDelete.style.display = 'flex';
+            //console.log(linkDelete[i].data("id"))
+            e.preventDefault();
+            idDelete = $(this).data("id");
+        });
+    }
+    btnDelete.on('click', function(){
+        formDelete.action = '/items/' + idDelete +'?_method=DELETE';
+        formDelete.submit();
+    })
+    function returnClick() {
+        modalDelete.style.display = 'none';
+    }
+    function closeClick() {
+        modalDelete.style.display = 'none';
+    }
+</Script>

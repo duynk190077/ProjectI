@@ -1,0 +1,241 @@
+<div class="container">
+    <div class="detail">
+        <div class="item">
+            <div class="item-img-div">
+                <img  class="item-img" src="{{item.image}}" alt="{{item.name}}">
+            </div>
+            <div class="item-info">
+                <span class="item-info-name">{{item.name}}</span>
+                <div class="item-info-price">
+                    <span class="item-info-price-default">{{printfprice item.price}}</span>
+                    <span class="item-info-price-salse">{{printfprice (price item.price item.sale)}}</span>
+                    <div class="item-info-sale">{{item.sale}}% GIẢM</div>
+                </div>
+                <div class="item-info-transport">
+                    <label class="item-info-transport-header">Vận chuyển</label>
+                    <div class="item-info-transport-body">
+                        <div class="item-info-transport-free">
+                            <div class="item-info-transport-free-icon">
+                                <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg//assets/1cdd37339544d858f4d0ade5723cd477.png" width="25" height="15" class="item-info-transport-free-icon-icon">
+                                Miễn phí vận chuyển
+                            </div>
+                            <div  class="item-info-transport-free-info">Miễn phí vận chuyển cho đơn hàng trên 300.000đ</div>
+                        </div>
+                        <div class="item-info-transport-user">
+                            <div class="item-info-transport-icon">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <div class="item-info-transport-des">
+                                <div class="item-info-transport-address">
+                                    <div class="item-info-transport-address-header">Vận chuyển tới</div>
+                                    <div class="item-info-transport-address-body">
+                                        {{!-- {{user.address}} --}}
+                                        Hoàng Xá
+                                    </div>
+                                </div>
+                                <div class="item-info-transport-price">
+                                    <div class="item-info-transport-price-header">Phí vận chuyển</div>
+                                    <div class="item-info-transport-price-body">32.800đ</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-info-number">
+                    <div class="item-info-number-header">Số lượng</div>
+                    <div class="item-info-number-body">
+                        <button class="item-info-number-button less" onclick="lessItem()">
+                            <svg enable-background="new 0 0 10 10" viewbox="0 0 10 10" x="0" y="0" class="svg-icon">
+                                <polygon points="4.5 4.5 3.5 4.5 0 4.5 0 5.5 3.5 5.5 4.5 5.5 10 5.5 10 4.5"></polygon>
+                            </svg>
+                        </button>
+                        <input type="text" class="item-info-number-input_number" value="1">
+                        <button class="item-info-number-button plus" onclick="plusItem()">
+                            <svg enable-background="new 0 0 10 10" viewbox="0 0 10 10" x="0" y="0" class="svg-icon">
+                                <polygon points="10 4.5 5.5 4.5 5.5 0 4.5 0 4.5 4.5 0 4.5 0 5.5 4.5 5.5 4.5 10 5.5 10 5.5 5.5 10 5.5"></polygon>
+                            </svg>
+                        </button>
+                        <div class="item-info-number-available">{{item.numAvailable}} sản phẩm có sẵn</div>
+                    </div>
+                </div>
+                <div class="item-info-purchase">
+                    <button class="btn item-add-cart" onclick="addOrder('unpaid')">
+                        <i class="fas fa-cart-plus add-cart-icon"></i>
+                        <span>Thêm vào giỏ hàng</span>  
+                    </button>
+                    <button class="btn btn--primary item-purchase-now" onclick="Purchase_overlay()">
+                        <span>Mua ngay</span>
+                    </button>
+                </div>
+                <div class="item-info-description">
+                    <p>{{item.description}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">Sản phẩm tương tự</div>
+    <div class="detail ">
+        <div class="items_similar">
+            {{#each items_similar}}
+            <div class="grid__column-2-4">
+                <a href="/items/{{this._id}}"class="home-product-items">
+                    <div class="home-product-items__img" style="background-image: url({{this.image}});"></div>
+                    <h4 class="home-product-items__name">{{this.name}}</h4>
+                    <div class="home-product-items__price">
+                        <span class="home-product-items__price-old">{{printfprice this.price}}đ</span>
+                        <span class="home-product-items__price-new">{{printfprice (price this.price this.sale)}}đ</span>
+                    </div>
+                    <div class="home-product-items__action">
+                        <span class="home-product-items__like home-product-items__like--liked">
+                            <i class="home-product-items__like-icon-empty far fa-heart"></i>
+                            <i class="home-product-items__like-icon-fill fas fa-heart"></i>
+                        </span>
+                        <div class="home-product-items__rating">
+                            <i class="home-product-items__star--gold fas fa-star"></i>
+                            <i class="home-product-items__star--gold fas fa-star"></i>
+                            <i class="home-product-items__star--gold fas fa-star"></i>
+                            <i class="home-product-items__star--gold fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span class="home-product-items__sold">{{this.numPurchased}} đã bán</span>
+                        </div>
+                    </div>
+                    <div class="home-product-items__origin">
+                        <span class="home-product-items__brand">Ohui</span>
+                        <span class="home-product-items__origin-name">Hàn Quốc</span>
+                    </div>
+                    <div class="home-product-items__favourite">
+                        <i class="fas fa-check"></i>
+                        <span >Yêu Thích</span>
+                    </div>
+                    <div class="home-product-items__sale-off">
+                        <span class="home-product-items__sale-off-percent">{{this.sale}}%</span>
+                        <span class="home-product-items__sale-off-lable">GIẢM</span>
+                    </div>
+                </a>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+    <div class="content">Có thể bạn cũng thích</div>
+    <div class="detail ">
+        <div class="items_involve">
+            {{#each items_involve}}
+            <div class="grid__column-2-4">
+                <a href="/items/{{this._id}}"class="home-product-items">
+                    <div class="home-product-items__img" style="background-image: url({{this.image}});"></div>
+                    <h4 class="home-product-items__name">{{this.name}}</h4>
+                    <div class="home-product-items__price">
+                        <span class="home-product-items__price-old">{{printfprice this.price}}đ</span>
+                        <span class="home-product-items__price-new">{{printfprice (price this.price this.sale)}}đ</span>
+                    </div>
+                    <div class="home-product-items__action">
+                        <span class="home-product-items__like home-product-items__like--liked">
+                            <i class="home-product-items__like-icon-empty far fa-heart"></i>
+                            <i class="home-product-items__like-icon-fill fas fa-heart"></i>
+                        </span>
+                        <div class="home-product-items__rating">
+                            <i class="home-product-items__star--gold fas fa-star"></i>
+                            <i class="home-product-items__star--gold fas fa-star"></i>
+                            <i class="home-product-items__star--gold fas fa-star"></i>
+                            <i class="home-product-items__star--gold fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span class="home-product-items__sold">{{this.numPurchased}} đã bán</span>
+                        </div>
+                    </div>
+                    <div class="home-product-items__origin">
+                        <span class="home-product-items__brand">Ohui</span>
+                        <span class="home-product-items__origin-name">Hàn Quốc</span>
+                    </div>
+                    <div class="home-product-items__favourite">
+                        <i class="fas fa-check"></i>
+                        <span >Yêu Thích</span>
+                    </div>
+                    <div class="home-product-items__sale-off">
+                        <span class="home-product-items__sale-off-percent">{{this.sale}}%</span>
+                        <span class="home-product-items__sale-off-lable">GIẢM</span>
+                    </div>
+                </a>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+<div class="modal modalPurchase" id="Purchase_overlay">
+  <div class="modal__overlay"></div>
+  <div class="modal__body">
+    <div class="purchase-item-form">
+        <div class="auth-form__container"></div>
+        <div class="auth-form__header">
+            <h3 class="auth-form__heading">Mua hàng</h3>
+            <i class="fas fa-times" id="delele-icon__close" onclick="closeClick()"></i>
+        </div>
+        <div class="delete-form__body">
+            <h3>Bạn có chắc chắn muốn mua mặt hàng này</h3>
+        </div>
+        <div class="auth-form__controls">
+            <button class="btn btn--normal auth-form__controls-back" id="return__overlay" onclick="returnClick()">TRỞ LẠI</button>
+            <button id="purchase-item" class="btn btn--primary" onclick = addOrder('paid')>MUA</button>
+        </div>
+    </div>
+  </div>
+</div>
+<script>
+    var inputNum = $('.item-info-number-input_number');
+    var numAvailable = Number({{item.numAvailable}});
+    var price = {{item.price}};
+    var sale = {{item.sale}};
+    const PurchaseOverlay = $('.modalPurchase');
+    function plusItem() {
+        var num = Number(inputNum.val());
+        num = num + 1;
+        setVal(num);
+        console.log(inputNum.val());
+    }
+    function lessItem() {
+        var num = Number(inputNum.val());
+        num = num - 1;
+        setVal(num);
+    }
+    function setVal(num) { 
+        if (num <= 0) num = 1;
+        if (num > numAvailable) num = numAvailable;
+        inputNum.val(num);
+        inputNum.trigger('change');
+    }
+    function addOrder(status) {
+        if (numAvailable === 0) alert('Mặt hàng này tạm thời đã hết');
+        else {
+            $.ajax({
+                url: '/orders/create',
+                type: 'POST',
+                headers: {'authorization': 'bearer ' + localStorage.getItem('token')},
+                data: {
+                    item_id: '{{item._id}}',
+                    item_name: '{{item.name}}',
+                    num: inputNum.val(),
+                    price: (price - price * sale / 100),
+                    item_img: '{{item.image}}',
+                    status: status
+                }
+            }).then((data) => {
+                if (data.status === 'ok') {
+                    alert("Order is create successfully");
+                    window.location.href = "/items/{{item._id}}";
+                }
+                else {
+                    alert("You need login to add item to your cart");
+                    window.location.href = "/login";
+                }
+            })
+        }
+    }
+    function Purchase_overlay() {
+        PurchaseOverlay.css('display', 'flex'); 
+    }
+    function returnClick() {
+        PurchaseOverlay.css('display', 'none'); 
+    }
+    function closeClick() {
+        PurchaseOverlay.css('display', 'none'); 
+    }
+</script>

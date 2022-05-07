@@ -1,0 +1,149 @@
+<div class="container">
+    <div class="order">
+    
+    </div>
+</div>
+<script>
+    var order = $('.order');
+    if (JSON.parse(localStorage.getItem('orders')).length != 0) {
+        order.html('');
+        const orders = JSON.parse(localStorage.getItem('orders'));
+        var orderList = $('<ul></ul>');
+        orderList.addClass('order__cart-list-item');
+        for (let i = 0; i < orders.length; i++) {
+            var orderItem = document.createElement('li');
+            orderItem.classList.add('order__cart-item');
+            orderItem.innerHTML = `
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="orderIds" value="${orders[i]._id}" id="form-check-input${i}">
+                </div>
+                <img src="${orders[i].item_img}" class="order__item-img">
+                <div class="order__item-info">
+                    <h5 class="order__item-name">${orders[i].item_name}</h5>
+                    <div class="order__item-info-price">
+                        <span class="order__item-price" ">${orders[i].price}đ</span>
+                        <span class="order__item-multiply">x</span>
+                        <span class="order__item-number" ">${orders[i].num}</span>
+                    </div>
+                    <div class="order__item-delete">
+                        <span class="order__item-delete-btn">Xóa</span>
+                    </div>
+                </div>
+            `;
+            orderList.append(orderItem);
+        }
+        order.append(orderList);
+        var purchased = document.createElement('div');
+        purchased.classList.add('form-purchased');
+        purchased.innerHTML = `
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="defaultCheck1">
+            </div>
+            <lable class="form-check-lable" for="defaultCheck1">
+                Chọn tất cả
+            </lable>
+            <div class="sum-price">
+                <div class="sum-price-header">
+                    Tổng thanh toán: 
+                </div>
+                <div class="sum-price-body">
+                </div>
+                <div class="sum-price-body-const">
+                    đ
+                </div>
+            </div>
+            <button class="btn btn--primary items-purchase">
+                <span> Mua hàng </span>
+            </button>
+        `;
+        order.append(purchased);
+        const checkall = $('#defaultCheck1');
+        const orderCheckbox = $('input[name="orderIds"]');
+        
+        const sumPricediv = $('.sum-price-body');
+        var sumprice = 0;
+        const price = $('.order__item-price');
+        const num = $('order__item-number');
+        setPrice(sumprice);
+        checkall.change(function () {
+            var isCheckedAll = $(this).prop('checked');
+            if (isCheckedAll) {
+                sumprice = 0;
+                for (let i = 0; i < orderCheckbox.length; i++) {
+                    sumprice = sumprice + orders[i].price * orders[i].num;
+                }
+            }
+            else sumprice = 0;
+            setPrice(sumprice);
+            orderCheckbox.prop('checked', isCheckedAll);
+        });
+        orderCheckbox.change(function () {
+            var isCheckedAll = orderCheckbox.length === $('input[name="orderIds"]:checked').length;
+            checkall.prop('checked', isCheckedAll);
+        })
+        for (let i = 0; i < orderCheckbox.length; i++) {
+            var idname = '#form-check-input' + i;
+            $(idname).change(function () {
+                isChecked = $(this).prop('checked');
+                if (isChecked) {
+                    sumprice = sumprice + orders[i].price * orders[i].num;
+                    setPrice(sumprice);
+                    //console.log(orders[i].num);
+                }
+                else {
+                    if (sumprice > 0) {
+                        sumprice = sumprice - orders[i].price * orders[i].num;
+                        setPrice(sumprice);
+                    }
+                }
+            })
+        }
+        function setPrice(sumprice) {
+            sumPricediv.text(sumprice);
+        }
+        var btnPurchased = $('.items-purchase');
+        btnPurchased.click(function (e) {
+            e.preventDefault();
+            var isSubmitable = $('input[name="orderIds"]:checked').length === 0;
+            if (!isSubmitable) {
+                jQuery.ajaxSettings.traditional = true;
+                var values = $('input[name="orderIds"]:checked').map(function () {
+                                    return $(this).val();
+                                    }).get();
+                $.ajax({
+                    url: '/orders/update',
+                    type: 'PUT',
+                    headers: {'authorization': 'bearer ' + localStorage.getItem('token')},
+                    data: {
+                        orderIds: values
+                    }
+                }).then(data => {
+                    if (data.status === 'ok') {
+                        window.location.href = '/';
+                    }
+                })
+            }
+            else alert('Hãy chọn mặt hàng bạn muốn mua');
+        })
+    }
+    else {
+        order.html('');
+        var noOrder = $('<div></div>');
+        noOrder.addClass('no-order_item');
+        noOrder.html(`
+            <img src="../../public/img/no_cart.png" alt="" class="order__cart-no-cart-img">
+            <span class="order__cart-list-no-cart-noti">
+                Giỏ hành bạn còn trống
+            </span>
+            <button class="btn btn--primary add-order" >
+                Mua thêm
+            </button>
+        `);
+        order.append(noOrder);
+        $('.add-order').click(function(e) {
+            e.preventDefault();
+            window.location.href = '/';
+        })
+
+    }
+</script>

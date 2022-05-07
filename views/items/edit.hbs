@@ -1,0 +1,36 @@
+<div class="edit">
+    <div class="grid">
+        <div class="row">
+            <div class="grid__column-10">
+                <h3 class = "create--name">Sửa mặt hàng</h3>
+                <form method="POST" action="/items/{{item._id}}?_method=PUT">
+                    <div class="form-group">
+                        <label for="name">Tên mặt hàng</label>
+                        <input type="text" class="form-control" value="{{item.name}}" name="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Mô tả</label>
+                        <input type="text" class="form-control" value="{{item.description}}" name="description">
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Ảnh minh họa</label>
+                        <input type="text" class="form-control" value="{{item.image}}" name="image">
+                    </div>
+                    <div class="form-group">
+                        <label for="oldprice">Giá</label>
+                        <input type="text" class="form-control" value="{{item.price}}" name="price">
+                    </div>
+                    <div class="form-group">
+                        <label for="newprice">Sale</label>
+                        <input type="text" class="form-control" value="{{item.sale}}" name="sale">
+                    </div>
+                    <div class="form-group">
+                        <label for="newprice">Số lượng</label>
+                        <input type="text" class="form-control" value="{{item.numAvailable}}" name="numAvailable">
+                    </div>
+                    <button type="submit" class="btn btn--primary">Cập nhật</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

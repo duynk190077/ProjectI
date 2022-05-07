@@ -1,0 +1,57 @@
+<div class="login">
+    <div class="grid">
+        <div class="row">
+            <div class="grid__column-10">
+                <div class="login-form">
+                   <div class="auth-form author-form-login">
+                        <div class="auth-form__container">
+                            <div class="auth-form__header">
+                                <h3 class="auth-form__heading">Đăng nhập</h3>
+                                <span class="auth-form__switch-btn" onclick="gotoRegister()">Đăng kí</span>
+                            </div>
+                            <div class="auth-form__form">
+                                <div class="auth-form__group">
+                                    <input type="text" class="auth-form__input username" placeholder="username">
+                                </div>
+                                <div class="auth-form__group">
+                                    <input type="password" class="auth-form__input password" placeholder="password">
+                                </div> 
+                            </div>
+                            <div class="auth-form__aside">
+                                <div class="auth-form__help">
+                                    <a href="" class="auth-form__help-link auth-form__help-fogot">
+                                        Quên mật khẩu
+                                    </a>
+                                    <span class="auth-form__help-separate"></span>
+                                    <a href="" class="auth-form__help-link auth-form__help-">
+                                        Cần trợ giúp?
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="auth-form__controls">
+                                <button class="btn btn--normal auth-form__controls-back">TRỞ LẠI</button>
+                                <button class="btn btn--primary" onClick="login()">ĐĂNG NHẬP</button>
+                            </div>
+                        </div>
+                        <div class="auth-form__social">
+                            <a href="" class="auth-form__social--facebook btn btn--size-s btn--withicon">
+                                <i class="auth-form__social-icon fab fa-facebook-square"></i>
+                                <span class="auth-form__social-lable">Connect with Facebook</span>
+                            </a>
+                            <a href="" class="auth-form__social--google btn btn--size-s btn--withicon">
+                                <i class="auth-form__social-icon fab fa-google"></i>
+                                <span class="auth-form__social-lable">Connect with Google</span>
+                            </a> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../../public/javascripts/login.js"></script>
+<script>
+    function gotoRegister () {
+        window.location.href = '/register';
+    }
+</script>
